@@ -1,0 +1,122 @@
+swagger: "2.0"
+info:
+  description: "This is a sample server Petstore server.  You can find out more about     Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).      For this sample, you can use the api key `special-key` to test the authorization     filters."
+  version: "1.0.0"
+  title: "Swagger Petstore"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "apiteam@swagger.io"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "localhost:8000"
+basePath: "/v2"
+tags:
+- name: "snippet"
+  description: "Operations about crurriculum"
+  externalDocs:
+    description: "Let's play swagger"
+    url: "http://localhost:8000"
+schemes:
+- "https"
+- "http"
+paths:
+  /snippets/:
+    get:
+      tags:
+      - "snippet"
+      summary: "Snippetの一覧を取得する"
+      description: ""
+      operationId: "SnippetList"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/snippets"
+
+        404:
+          description: "User not found"
+  '/snippet/{snippet_id}/':
+    get:
+      tags:
+      - "snippet"
+      summary: "単一のSnippetを取得する"
+      description: ""
+      operationId: "SnippetObject"
+      produces: 
+      - "application/xml"
+      - "application/json"
+      parameters: 
+        - name: snippet_id
+          in: path
+          description: ID of snippet to return
+          type: integer
+          format: int64
+          required: true
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/snippet"
+        404:
+          description: "Not found"
+securityDefinitions:
+  petstore_auth:
+    type: "oauth2"
+    authorizationUrl: "http://petstore.swagger.io/oauth/dialog"
+    flow: "implicit"
+    scopes:
+      write:pets: "modify pets in your account"
+      read:pets: "read your pets"
+  api_key:
+    type: "apiKey"
+    name: "api_key"
+    in: "header"
+definitions:
+  snippet:  # Snippet_type
+    type: "object"
+    properties:
+      url:
+        type: "string"
+        format: "url"
+        example: "http://localhost:8000/api/snippets/1/"
+      id:
+        type: "integer"
+        format: "int64"
+      owner:
+        type: "string"
+      title:
+        type: "string"
+      language:
+        type: "string"
+      style:
+        type: "string"
+    xml:
+      name: "Snippet"
+  snippets:
+    type: "array"
+    items:
+      type: "object"
+      properties:
+        url:
+          type: "string"
+          format: "url"
+          example: "http://localhost:8000/api/snippets/1/"
+        id:
+          type: "integer"
+          format: "int64"
+        owner:
+          type: "string"
+        title:
+          type: "string"
+        language:
+          type: "string"
+        style:
+          type: "string"
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"
