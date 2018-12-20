@@ -40,6 +40,24 @@ paths:
 
         404:
           description: "User not found"
+    post:
+      tags:
+      - "snippet"
+      summary: "Snippetを登録する"
+      description: "Snippetを登録する"
+      operationId: "CreateSnippet"
+      produces:
+      - "application/xml"
+      - "applicaiton/json"
+      parameters:
+        - in: body
+          name: body
+          description: "Snippetパラメータ title、codeは必須"
+          schema:
+            $ref: '#/definitions/snippet'
+      responses:
+        400:
+          description: "Bad Request"
   '/snippet/{snippet_id}/':
     get:
       tags:
@@ -90,6 +108,8 @@ definitions:
       owner:
         type: "string"
       title:
+        type: "string"
+      code:
         type: "string"
       language:
         type: "string"
